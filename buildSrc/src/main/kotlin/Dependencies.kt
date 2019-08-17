@@ -1,4 +1,5 @@
 object Plugins {
+    const val detekt = "io.gitlab.arturbosch.detekt"
     const val gradleVersions = "com.github.ben-manes.versions"
     const val ktlint = "org.jlleitschuh.gradle.ktlint"
     const val ktlintIdea = "org.jlleitschuh.gradle.ktlint-idea"

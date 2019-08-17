@@ -1,12 +1,12 @@
 plugins {
-  kotlin("jvm")
+    kotlin("jvm")
 }
 
 dependencies {
-  implementation(Libs.kotlinStdlib)
+    implementation(Libs.kotlinStdlib)
 
-  testImplementation(TestLibs.assertJCore)
-  testImplementation(TestLibs.junit5Api)
-  testRuntimeOnly(TestLibs.junit5Runtime)
-  testImplementation(TestLibs.mockk)
+    testImplementation(TestLibs.assertJCore)
+    testImplementation(TestLibs.junit5Api)
+    testRuntimeOnly(TestLibs.junit5Runtime)
+    testImplementation(TestLibs.mockk)
 }
