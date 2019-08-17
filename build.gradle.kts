@@ -49,3 +49,5 @@ subprojects {
     }
   }
 }
+
+apply(from = "scripts/project-setup.gradle.kts")
