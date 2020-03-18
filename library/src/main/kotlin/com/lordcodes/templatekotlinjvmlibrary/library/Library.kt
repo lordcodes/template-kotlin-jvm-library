@@ -1,5 +1,8 @@
 package com.lordcodes.templatekotlinjvmlibrary.library
 
+/**
+ * Example class
+ */
 object Library {
-    fun run() = true
+    fun run() = print("Ran!")
 }
