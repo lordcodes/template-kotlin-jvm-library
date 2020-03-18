@@ -36,7 +36,7 @@ A template repository for new Kotlin library projects.
 - Project git hooks
 - Kotlin Gradle DSL
 - buildSrc for dependencies
-- Circle CI configuration
+- GitHub Actions configuration
 - Unit tests run configuration
 - ktlint applied code style and inspections
 
