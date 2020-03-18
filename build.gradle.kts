@@ -3,7 +3,12 @@ import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 buildscript {
     repositories {
+        mavenCentral()
         jcenter()
+    }
+
+    dependencies {
+        classpath(Plugins.bintrayReleaseVersioned)
     }
 }
 
@@ -18,6 +23,7 @@ plugins {
 
 allprojects {
     repositories {
+        mavenCentral()
         jcenter()
     }
 
@@ -30,7 +36,7 @@ allprojects {
     tasks.withType<Test>().configureEach {
         reports {
             @Suppress("UnstableApiUsage")
-            html.setEnabled(true)
+            html.isEnabled = true
         }
         testLogging {
             events("passed", "skipped", "failed")
@@ -39,26 +45,33 @@ allprojects {
 }
 
 subprojects {
-    apply(plugin = Plugins.detekt)
     apply(plugin = Plugins.ktlint)
-    apply(plugin = Plugins.ktlintIdea)
-
-    detekt {
-        toolVersion = Versions.detekt
-        input = files(
-            "src/main/kotlin",
-            "src/test/kotlin"
-        )
-        parallel = true
-    }
 
     ktlint {
         version.set(Versions.ktlint)
-        reporters.set(setOf(ReporterType.PLAIN, ReporterType.CHECKSTYLE))
+        reporters {
+            reporter(ReporterType.CHECKSTYLE)
+            reporter(ReporterType.HTML)
+        }
         filter {
             include("**/src/**/kotlin/**")
+        }
+        kotlinScriptAdditionalPaths {
+            include(fileTree("scripts/"))
         }
     }
 }
 
-apply(from = "scripts/project-setup.gradle.kts")
+detekt {
+    toolVersion = Versions.detekt
+    input = files(
+        "$projectDir/library/src/main/kotlin",
+        "$projectDir/library/src/test/kotlin",
+        "$projectDir/buildSrc/src/main/kotlin"
+    )
+    parallel = true
+    config = files("${rootProject.projectDir}/config/detekt/detekt.yml")
+    buildUponDefaultConfig = true
+}
+
+apply(from = "scripts/build-verify.gradle.kts")
